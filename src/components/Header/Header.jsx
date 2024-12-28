@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 function Header() {
   return (
     <header style={{ backgroundColor: '#EEE9E2' }} className="shadow sticky z-50 top-0 ">
-      <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <div id="Iasd" className="   width: clamp(100px, 75% , 200px) flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
         <Link to="/" className="flex items-center">
           <img src="./images/logo.jpg" className="mr-3 h-12" alt="Logo" />
         </Link>

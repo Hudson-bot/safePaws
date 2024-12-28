@@ -10,10 +10,6 @@
     "npm": "^11.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-<<<<<<< HEAD
-    "react-router-dom": "^7.1.1",
-=======
->>>>>>> 2d742604d9cb1f6ef875d3cc44fe18dbdc95fed8
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"
   },
@@ -50,11 +46,6 @@
     }
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "tailwindcss": "^3.4.17"
-=======
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
->>>>>>> 2d742604d9cb1f6ef875d3cc44fe18dbdc95fed8
   }
 }
