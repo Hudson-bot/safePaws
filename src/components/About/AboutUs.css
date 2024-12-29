@@ -1,0 +1,60 @@
+.about-us-container {
+    font-family: Arial, sans-serif;
+    color: #000;
+    text-align: center;
+    padding: 4rem;
+    padding-inline: 10rem;
+    background-color: #f8f8f8;
+  }
+  
+  .about-us-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .about-us-text {
+    flex: 1;
+    font-size: 1.2rem;
+    text-align: left;
+    line-height: 1.5;
+  }
+  
+  .about-us-image img {
+    width: 250px;
+    border-radius: 8px;
+  }
+  
+  .about-us-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    flex: 1;
+    text-align: left;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+  .card h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #666;
+  }

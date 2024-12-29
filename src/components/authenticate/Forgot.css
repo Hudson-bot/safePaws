@@ -1,0 +1,71 @@
+.forgot-password {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  position: relative; 
+  background: url('../../../public/images/LoginBg.png') no-repeat center center/cover; 
+}
+
+.forgot-password h2 {
+  transform: translateX(15rem);
+} 
+.forgot-password h2 {
+  font-size: 2.5rem;
+  color: #3E1909;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.forgot-password label {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #5a2d09;
+  align-self: flex-start;
+  margin-left: 60rem;
+}
+
+.forgot-password input {
+  width: 18%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 1rem;
+  margin-left: 28.8rem;
+}
+
+.forgot-password button {
+  width: 11%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #5a2d09;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 28.5rem;
+}
+
+.forgot-password button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.forgot-password .forgot-password {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%; 
+  max-width: 400px; 
+}
+
+.forgot-password .forgot-password .btn {
+  width: 50%;
+  padding: 10px;
+  border-radius: 10px;
+}
