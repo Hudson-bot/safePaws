@@ -1,60 +1,163 @@
 .about-us-container {
-    font-family: Arial, sans-serif;
-    color: #000;
-    text-align: center;
-    padding: 4rem;
-    padding-inline: 10rem;
-    background-color: #f8f8f8;
+  font-family: Arial, sans-serif;
+  color: #000;
+  text-align: center;
+  padding: 4rem;
+  padding-inline: 10rem;
+  background-color: #EEE9E2;
+}
+
+.about-us-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.about-us-text {
+  flex: 1;
+  font-size: 1.2rem;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.about-us-image img {
+  width: 250px;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
+.about-us-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  flex: 1;
+  text-align: left;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.card p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #666;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Mobile devices (Portrait) */
+@media (max-width: 480px) {
+  .about-us-container {
+    padding: 2rem;
+    padding-inline: 1rem;
   }
-  
+
   .about-us-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    margin: 2rem 0;
+    flex-direction: column;
+    gap: 1rem;
   }
-  
+
   .about-us-text {
-    flex: 1;
-    font-size: 1.2rem;
-    text-align: left;
-    line-height: 1.5;
+    font-size: 1rem;
+    text-align: center;
   }
-  
+
+  .about-us-image img {
+    width: 200px;
+  }
+
+  .about-us-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* Tablets (Portrait and Landscape) */
+@media (max-width: 768px) {
+  .about-us-container {
+    padding: 3rem;
+    padding-inline: 3rem;
+  }
+
+  .about-us-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-us-text {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
   .about-us-image img {
     width: 250px;
-    border-radius: 8px;
   }
-  
+
+  .about-us-cards {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* Large devices (Laptops and Desktops) */
+@media (min-width: 1024px) {
+  .about-us-container {
+    padding: 4rem;
+    padding-inline: 10rem;
+  }
+
+  .about-us-content {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .about-us-text {
+    font-size: 1.2rem;
+  }
+
+  .about-us-image img {
+    width: 250px;
+  }
+
   .about-us-cards {
     display: flex;
     justify-content: space-around;
-    gap: 1rem;
-    margin-top: 2rem;
+    gap: 2rem;
   }
-  
+
   .card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
     flex: 1;
-    text-align: left;
+    max-width: 300px;
   }
-  .card:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease;
-  }
-  .card h3 {
-    font-size: 1.2rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  
-  .card p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    color: #666;
-  }
+}

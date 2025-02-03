@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+.cont {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #EEE9E2;
+}
+
+.Shead {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+}
+
+.Ppara {
+  font-family: 'Josefin Sans', sans-serif; /* Ensure "sans-serif" is used here */
+  font-weight: 200;
+}
+
+.subb {
+  background-color: #6A4D3F;
+}

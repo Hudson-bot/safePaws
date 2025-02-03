@@ -1,32 +1,32 @@
 .service-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
     justify-content: center;
     height: 100vh;
     font-family: 'Arial', sans-serif;
     position: relative;
     background: url('../../../public/images/background3.jpg') no-repeat center center/cover;
-    padding-left: 5rem; 
-}
-
-.service-container b,
-.service-container p,
-.service-container button {
-    margin-left: 3rem; 
-    margin-bottom: 2rem; 
-}
-
-.service-container b {
+    padding-left: 5rem;
+  }
+  
+  .service-container b,
+  .service-container p,
+  .service-container button {
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+  }
+  
+  .service-container b {
     font-size: 4rem;
     color: #000000;
-}
-
-.service-container p {
+  }
+  
+  .service-container p {
     font-size: 2rem;
-}
-
-.service-container button {
+  }
+  
+  .service-container button {
     width: 25%;
     padding: 10px;
     border-radius: 10px;
@@ -34,4 +34,82 @@
     color: white;
     font-size: 1rem;
     cursor: pointer;
-}
+  }
+  
+  /* Media Queries for Responsiveness */
+  
+  /* Mobile Devices */
+  @media (max-width: 480px) {
+    .service-container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      align-items: center;
+    }
+  
+    .service-container b {
+      font-size: 2.5rem; /* Adjusted for mobile */
+      text-align: center;
+      margin-left: 0;
+    }
+  
+    .service-container p {
+      font-size: 1.5rem; /* Adjusted for mobile */
+      text-align: center;
+      margin-left: 0;
+    }
+  
+    .service-container button {
+      width: 60%; /* Increased button width for easier tapping on mobile */
+      font-size: 1.2rem; /* Larger text for buttons on mobile */
+      margin-left: 0;
+    }
+  }
+  
+  /* Tablets (Portrait and Landscape) */
+  @media (max-width: 768px) {
+    .service-container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      align-items: center;
+    }
+  
+    .service-container b {
+      font-size: 3rem; /* Adjusted for tablet */
+      text-align: center;
+      margin-left: 0;
+    }
+  
+    .service-container p {
+      font-size: 1.8rem; /* Adjusted for tablet */
+      text-align: center;
+      margin-left: 0;
+    }
+  
+    .service-container button {
+      width: 50%; /* Adjusted for tablet */
+      font-size: 1.1rem;
+      margin-left: 0;
+    }
+  }
+  
+  /* Large Devices (Laptops and Desktops) */
+  @media (min-width: 1024px) {
+    .service-container {
+      padding-left: 5rem;
+      padding-right: 5rem;
+      align-items: flex-start;
+    }
+  
+    .service-container b {
+      font-size: 4rem;
+    }
+  
+    .service-container p {
+      font-size: 2rem;
+    }
+  
+    .service-container button {
+      width: 25%;
+      font-size: 1rem;
+    }
+  }

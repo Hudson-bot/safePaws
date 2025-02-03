@@ -1,4 +1,9 @@
+
+
 const Donate = () => {
-    return <div>404 Not Found</div>;
+    return <div>
+      
+      thgis is donate page
+    </div>;
   };
   export default Donate;

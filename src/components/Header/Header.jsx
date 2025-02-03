@@ -1,15 +1,51 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { auth } from "../authenticate/config"; // Adjust the import path as needed
+import { useNavigate } from 'react-router-dom';
 
-function Header() {
+function Header({
+  homeRef,
+  donateAdoptRef,
+  aboutUsRef,
+  servicesRef,
+  contactsRef,
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
+  const scrollToSection = (ref) => {
+    if (ref && ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return unsubscribe;
+  }, []);
+
+  // Function to get the first letter of the user's name or email
+  const getInitial = () => {
+    if (user && user.displayName) {
+      return user.displayName.charAt(0).toUpperCase();
+    } else if (user && user.email) {
+      return user.email.charAt(0).toUpperCase(); // Fallback to first letter of email
+    }
+    return "";
+  };
+  const navigate = useNavigate();
   return (
-    <header style={{ backgroundColor: '#EEE9E2' }} className="shadow sticky z-50 top-0">
+   
+    <header
+      style={{ backgroundColor: "#EEE9E2" }}
+      className="shadow sticky z-50 top-0"
+    >
       <div className="flex justify-between items-center mx-auto max-w-screen-xl p-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
@@ -40,122 +76,122 @@ function Header() {
 
         {/* Navigation Links for Desktop */}
         <div className="hidden lg:flex items-center space-x-8">
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              `py-2 px-3 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-            }
+          <button
+            onClick={() => {
+              navigate('/', { state: { scrollTo: 'homeRef' } });
+            }}
+            className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Home
-          </NavLink>
-          <NavLink
-            to="/Donate/adopt"
-            className={({ isActive }) =>
-              `py-2 px-3 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-            }
+          </button>
+          <button
+            onClick={() => {
+              navigate('/Donate/adopt', { state: { scrollTo: 'donateAdoptRef' } });
+            }}
+            className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Donate/Adopt
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) =>
-              `py-2 px-3 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-            }
+          </button>
+          <button
+            onClick={() => {scrollToSection(aboutUsRef);
+              navigate('/about');}}
+            className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             About Us
-          </NavLink>
-          <NavLink
-            to="/services"
-            className={({ isActive }) =>
-              `py-2 px-3 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-            }
+          </button>
+          <button
+             onClick={() => {scrollToSection(servicesRef);
+              navigate('/services');}}
+            className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Services
-          </NavLink>
-          <NavLink
-            to="/contactUs"
-            className={({ isActive }) =>
-              `py-2 px-3 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-            }
+          </button>
+          <button
+            onClick={() => {scrollToSection(contactsRef);
+              navigate('/contactUs');}}
+            className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
-            Contact
-          </NavLink>
+            Contact Us
+          </button>
 
-          {/* Login Button */}
-          <Link
-            to="authenticate"
-            className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none ml-4"
-          >
-            Log in
-          </Link>
+          {/* User Profile Button */}
+          {user ? (
+            <div className="flex items-center">
+              <span className="text-gray-700 bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold">
+                {getInitial()}
+              </span>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none ml-4"
+            >
+              Log in
+            </Link>
+          )}
         </div>
       </div>
 
       {/* Mobile Menu - Hidden by default, shown when isMenuOpen is true */}
       <div
-        className={`lg:hidden ${isMenuOpen ? "block" : "hidden"} bg-gray-100 py-4`}
+        className={`lg:hidden ${
+          isMenuOpen ? "block" : "hidden"
+        } bg-gray-100 py-4`}
         id="mobile-menu"
       >
         <ul className="space-y-4">
           <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `block py-2 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-              }
+            <button
+              onClick={() => scrollToSection(homeRef)}
+              className="block py-2 text-gray-700 hover:text-orange-700"
+              
             >
               Home
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink
-              to="/Donate/adopt"
-              className={({ isActive }) =>
-                `block py-2 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-              }
+            <button
+              onClick={() => scrollToSection(donateAdoptRef)}
+              className="block py-2 text-gray-700 hover:text-orange-700"
             >
               Donate/Adopt
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `block py-2 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-              }
+            <button
+              onClick={() => scrollToSection(aboutUsRef)}
+              className="block py-2 text-gray-700 hover:text-orange-700"
             >
               About Us
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink
-              to="/services"
-              className={({ isActive }) =>
-                `block py-2 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-              }
+            <button
+              onClick={() => scrollToSection(servicesRef)}
+              className="block py-2 text-gray-700 hover:text-orange-700"
             >
               Services
-            </NavLink>
+            </button>
           </li>
           <li>
-            <NavLink
-              to="/contactUs"
-              className={({ isActive }) =>
-                `block py-2 text-gray-700 ${isActive ? "text-orange-700" : "hover:text-orange-700"}`
-              }
+            <button
+              onClick={() => scrollToSection(contactsRef)}
+              className="block py-2 text-gray-700 hover:text-orange-700"
             >
-              Contact
-            </NavLink>
+              Contact Us
+            </button>
           </li>
-
-          {/* Login Button for Mobile */}
           <li>
-            <Link
-              to="/login"
-              className="block py-2 text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
-            >
-              Log in
-            </Link>
+            {user ? (
+              <div className="block py-2 text-gray-700">{getInitial()}</div>
+            ) : (
+              <Link
+                to="/login"
+                className="block py-2 text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
+              >
+                Log in
+              </Link>
+            )}
           </li>
         </ul>
       </div>

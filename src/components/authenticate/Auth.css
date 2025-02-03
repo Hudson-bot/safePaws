@@ -156,3 +156,17 @@
       font-size: 0.8rem; /* Adjust forgot password font size */
     }
   }
+
+  .google-signin-button {
+    background-color:#357AE8; /* Google Blue */
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 10%;
+    margin-top: 10px;
+  }
+  
+  .google-signin-button:hover {
+    background-color: #357AE8; /* Darker shade on hover */
+  }
