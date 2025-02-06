@@ -1,6 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleAccessoriesClick = () => {
+    navigate("/accessories");
+  };
+
   return (
     <div
       className="flex flex-col lg:flex-row items-center justify-center lg:justify-start h-screen bg-cover bg-no-repeat bg-center"
@@ -18,7 +25,10 @@ const Home = () => {
           <button className="inline-flex text-white items-center px-8 py-3 sm:px-12 sm:py-3 font-medium bg-orange-700 rounded-lg hover:opacity-75 mb-4 sm:mb-0 sm:mr-4">
             Rescue
           </button>
-          <button className="inline-flex text-white items-center px-8 py-3 sm:px-12 sm:py-3 font-medium bg-orange-700 rounded-lg hover:opacity-75">
+          <button
+            onClick={handleAccessoriesClick}
+            className="inline-flex text-white items-center px-8 py-3 sm:px-12 sm:py-3 font-medium bg-orange-700 rounded-lg hover:opacity-75"
+          >
             Accessories
           </button>
         </div>
@@ -47,7 +57,5 @@ const Home = () => {
     </div>
   );
 };
-
-
 
 export default Home;

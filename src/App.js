@@ -5,8 +5,6 @@ import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
 import NotFound from "./components/Not Found/NotFound";
 import DonateAdopt from "./components/DonateAdopt/DonateAdopt";
-import Donate from "./components/Donate/Donate";
-import Adopt from "./components/Adopt/Adopt";
 import AboutUs from "./components/About/About";
 import Services from "./components/Services/Services";
 import Contacts from "./components/Contacts/Contacts";
@@ -15,9 +13,11 @@ import Forgot from "./components/authenticate/Forgot";
 import Login from "./components/authenticate/login/Login";
 import SignUp from "./components/authenticate/signUp/signUp";
 import ServicesForm from "./components/Services/ServicesForm";
+import Adopt from "./components/Adopt/Adopt";
+import Donate from "./components/Donate/Donate";
+import Accessories from "./components/Accessories/Accessories";
 
 function App() {
-  // Create refs for each section to scroll to
   const homeRef = useRef(null);
   const donateAdoptRef = useRef(null);
   const aboutUsRef = useRef(null);
@@ -26,7 +26,6 @@ function App() {
 
   return (
     <Router>
-      {/* Pass refs to Header */}
       <Header
         homeRef={homeRef}
         donateAdoptRef={donateAdoptRef}
@@ -37,7 +36,6 @@ function App() {
 
       {/* Main content sections */}
       <Routes>
-        {/* Home route */}
         <Route
           path="/"
           element={
@@ -61,10 +59,7 @@ function App() {
             </>
           }
         />
-        {/* Other routes */}
         <Route path="/Donate/adopt" element={<DonateAdopt />} />
-        <Route path="/Donate" element={<Donate />} />
-        <Route path="/Adopt" element={<Adopt />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contactUs" element={<Contacts />} />
@@ -72,7 +67,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/ServicesForm" element={<ServicesForm />} />
-        {/* Catch-all route for 404 Not Found */}
+        <Route path="/donate" element={<Donate />} />
+        <Route path="/adopt" element={<Adopt />} />
+        <Route path="/accessories" element={<Accessories />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../authenticate/config"; // Adjust the import path as needed
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Header({
   homeRef,
@@ -39,9 +39,8 @@ function Header({
     }
     return "";
   };
-  const navigate = useNavigate();
+
   return (
-   
     <header
       style={{ backgroundColor: "#EEE9E2" }}
       className="shadow sticky z-50 top-0"
@@ -49,7 +48,7 @@ function Header({
       <div className="flex justify-between items-center mx-auto max-w-screen-xl p-4">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <img src="/images/logo.jpg" className="mr-3 h-12" alt="Logo" />
+          <img src="/images/smallLogo.png" className="mr-3 h-12" alt="Logo" />
         </Link>
 
         {/* Mobile Menu Toggle Button */}
@@ -77,38 +76,31 @@ function Header({
         {/* Navigation Links for Desktop */}
         <div className="hidden lg:flex items-center space-x-8">
           <button
-            onClick={() => {
-              navigate('/', { state: { scrollTo: 'homeRef' } });
-            }}
+            onClick={() => scrollToSection(homeRef)}
             className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Home
           </button>
           <button
-            onClick={() => {
-              navigate('/Donate/adopt', { state: { scrollTo: 'donateAdoptRef' } });
-            }}
+            onClick={() => scrollToSection(donateAdoptRef)}
             className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Donate/Adopt
           </button>
           <button
-            onClick={() => {scrollToSection(aboutUsRef);
-              navigate('/about');}}
+            onClick={() => scrollToSection(aboutUsRef)}
             className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             About Us
           </button>
           <button
-             onClick={() => {scrollToSection(servicesRef);
-              navigate('/services');}}
+            onClick={() => scrollToSection(servicesRef)}
             className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Services
           </button>
           <button
-            onClick={() => {scrollToSection(contactsRef);
-              navigate('/contactUs');}}
+            onClick={() => scrollToSection(contactsRef)}
             className="py-2 px-3 text-gray-700 hover:text-orange-700"
           >
             Contact Us
@@ -144,7 +136,6 @@ function Header({
             <button
               onClick={() => scrollToSection(homeRef)}
               className="block py-2 text-gray-700 hover:text-orange-700"
-              
             >
               Home
             </button>
