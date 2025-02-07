@@ -1,71 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { LinearProgress, Box } from "@mui/material"; // Make sure LinearProgress is imported
 
-const Accessories = () => {
-  const [cart, setCart] = useState({}); // Change cart to an object
+const Accessories = ({ loading }) => {
+  const [cart, setCart] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showFavorites, setShowFavorites] = useState(false);
-  const [showCart, setShowCart] = useState(false); // State to control cart overlay visibility
+  const [showCart, setShowCart] = useState(false);
+  const [products, setProducts] = useState([]);
 
-  const products = [
-    {
-      id: 1,
-      name: "Dog Collar",
-      price: "$10",
-      category: "Dogs",
-      newArrival: true,
-    },
-    {
-      id: 2,
-      name: "Cat Toy",
-      price: "$14",
-      category: "Cats",
-      newArrival: true,
-    },
-    {
-      id: 3,
-      name: "Fish Tank",
-      price: "$9",
-      category: "Fish",
-      newArrival: false,
-    },
-    {
-      id: 4,
-      name: "Bird Cage",
-      price: "$14",
-      category: "Birds",
-      newArrival: false,
-    },
-    {
-      id: 5,
-      name: "Dog Bed",
-      price: "$5",
-      category: "Dogs",
-      newArrival: false,
-    },
-    {
-      id: 6,
-      name: "Cat Tree",
-      price: "$999",
-      category: "Cats",
-      newArrival: false,
-    },
-    {
-      id: 7,
-      name: "Grooming Kit",
-      price: "$14",
-      category: "Dogs",
-      newArrival: false,
-    },
-    {
-      id: 8,
-      name: "Automatic Feeder",
-      price: "$999",
-      category: "Cats",
-      newArrival: false,
-    },
-  ];
+  // Fetch data from the backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/products"); // Replace with your backend URL
+        setProducts(response.data); // Set the products data to state
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
+    fetchProducts();
+  }, []);
+
+  // Add to cart logic
   const addToCart = (id) => {
     setCart((prevCart) => {
       if (prevCart[id]) {
@@ -76,6 +35,7 @@ const Accessories = () => {
     });
   };
 
+  // Toggle favorite logic
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) =>
       prevFavorites.includes(id)
@@ -84,33 +44,33 @@ const Accessories = () => {
     );
   };
 
+  // Category filter logic
   const filterProducts = (category) => {
-    if (category === "All") {
-      setSelectedCategory("All");
-      setShowFavorites(false);
-    } else {
-      setSelectedCategory(category);
-      setShowFavorites(false);
-    }
+    setSelectedCategory(category);
+    setShowFavorites(false);
   };
 
+  // Show favorite items
   const showFavoritesView = () => {
     setShowFavorites(true);
     setSelectedCategory("All");
   };
 
+  // Cart toggle visibility
   const handleCartToggle = () => {
-    setShowCart(!showCart); // Toggle the visibility of the cart overlay
+    setShowCart(!showCart);
   };
 
+  // Remove item from cart
   const removeFromCart = (id) => {
     setCart((prevCart) => {
       const updatedCart = { ...prevCart };
-      delete updatedCart[id]; // Remove item from the cart
+      delete updatedCart[id]; // Remove from cart
       return updatedCart;
     });
   };
 
+  // Calculate total cart price
   const calculateTotal = () => {
     let total = 0;
     Object.keys(cart).forEach((id) => {
@@ -118,17 +78,33 @@ const Accessories = () => {
       const price = parseFloat(product.price.replace("$", ""));
       total += price;
     });
-    return total.toFixed(2); // Format the total to two decimal places
+    return total.toFixed(2);
   };
 
+  // Filter products based on category or favorites
   const filteredProducts = showFavorites
     ? products.filter((product) => favorites.includes(product.id))
     : selectedCategory === "All"
     ? products
     : products.filter((product) => product.category === selectedCategory);
 
+  // If there are no products after filtering, show a message
+  if (filteredProducts.length === 0) {
+    return (
+      <div className="bg-[#E8E0D6] min-h-screen p-10">
+        {/* Show loader if loading */}
+        {loading && <LinearProgress color="secondary" />}
+        <div className="text-center text-xl font-semibold text-gray-600">
+          No products are available right now.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-[#E8E0D6] min-h-screen p-10">
+      {/* Show loader if loading */}
+      {loading && <LinearProgress color="secondary" />}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-brown-700">Accessories</h1>
         <div className="flex space-x-3">
@@ -151,7 +127,7 @@ const Accessories = () => {
           </button>
           <button
             className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
-            onClick={handleCartToggle} // Toggle the cart overlay
+            onClick={handleCartToggle}
           >
             My Cart{" "}
             {Object.keys(cart).length > 0 &&
@@ -160,6 +136,7 @@ const Accessories = () => {
         </div>
       </div>
 
+      {/* Product grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
         {filteredProducts.map((product) => (
           <div
@@ -218,18 +195,18 @@ const Accessories = () => {
               })
             )}
             <div className="mt-4 text-lg font-semibold">
-              <p>Total: ${calculateTotal()}</p> {/* Display the total */}
+              <p>Total: ${calculateTotal()}</p>
             </div>
             <div className="flex justify-between mt-4">
               <button
                 className="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-400"
-                onClick={handleCartToggle} // Close the cart overlay
+                onClick={handleCartToggle}
               >
                 Close
               </button>
               <button
                 className="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-400"
-                onClick={handleCartToggle} // Placeholder for Checkout functionality
+                onClick={handleCartToggle}
               >
                 Checkout
               </button>

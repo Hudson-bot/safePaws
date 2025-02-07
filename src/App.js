@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -17,12 +17,41 @@ import Adopt from "./components/Adopt/Adopt";
 import Donate from "./components/Donate/Donate";
 import Accessories from "./components/Accessories/Accessories";
 
+// Import a loading spinner (you can use your own spinner or any UI component library)
+import { LinearProgress } from "@mui/material"; // Material UI spinner for simplicity
+
 function App() {
+  const [loading, setLoading] = useState(true); // Create loading state
   const homeRef = useRef(null);
   const donateAdoptRef = useRef(null);
   const aboutUsRef = useRef(null);
   const servicesRef = useRef(null);
   const contactsRef = useRef(null);
+
+  // Simulate a loading process with a timeout (could be API call or other async operations)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false); // Set loading to false after 2 seconds
+    }, 2000);
+
+    return () => clearTimeout(timer); // Cleanup the timer when the component unmounts
+  }, []);
+
+  if (loading) {
+    // Show a loading spinner while the app is loading
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <LinearProgress color="secondary" />
+      </div>
+    );
+  }
 
   return (
     <Router>

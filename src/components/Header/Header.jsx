@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../authenticate/config"; // Adjust the import path as needed
 import { useNavigate } from "react-router-dom";
+import { LinearProgress } from "@mui/material"; // Importing LinearProgress
 
 function Header({
   homeRef,
@@ -9,6 +10,7 @@ function Header({
   aboutUsRef,
   servicesRef,
   contactsRef,
+  loading, // Accepting the loading prop
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -174,11 +176,15 @@ function Header({
           </li>
           <li>
             {user ? (
-              <div className="block py-2 text-gray-700">{getInitial()}</div>
+              <div className="flex items-center">
+                <span className="text-gray-700 bg-gray-300 rounded-full w-8 h-8 flex items-center justify-center text-white font-bold">
+                  {getInitial()}
+                </span>
+              </div>
             ) : (
               <Link
                 to="/login"
-                className="block py-2 text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
+                className="text-white bg-red-400 hover:bg-red-500 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
               >
                 Log in
               </Link>
@@ -186,6 +192,9 @@ function Header({
           </li>
         </ul>
       </div>
+
+      {/* Show LinearProgress bar when loading is true */}
+      {loading && <LinearProgress />}
     </header>
   );
 }

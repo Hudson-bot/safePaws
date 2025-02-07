@@ -1,273 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const petData = [
-  // Dogs
-  {
-    name: "Rocky",
-    age: "2 years",
-    gender: "Male",
-    breed: "Labrador",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Bella",
-    age: "1 year",
-    gender: "Female",
-    breed: "Labrador",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Max",
-    age: "3 years",
-    gender: "Male",
-    breed: "Beagle",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Lucy",
-    age: "2 years",
-    gender: "Female",
-    breed: "Poodle",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Charlie",
-    age: "4 years",
-    gender: "Male",
-    breed: "Bulldog",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Buddy",
-    age: "1 year",
-    gender: "Male",
-    breed: "Golden Retriever",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Daisy",
-    age: "2 years",
-    gender: "Female",
-    breed: "Boxer",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Luna",
-    age: "3 years",
-    gender: "Female",
-    breed: "German Shepherd",
-    category: "Dogs",
-    photo: "https://via.placeholder.com/150",
-  },
-
-  // Cats
-  {
-    name: "Whiskers",
-    age: "3 years",
-    gender: "Male",
-    breed: "Persian",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Mittens",
-    age: "2 years",
-    gender: "Female",
-    breed: "Siamese",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Shadow",
-    age: "1 year",
-    gender: "Male",
-    breed: "Maine Coon",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Luna",
-    age: "4 years",
-    gender: "Female",
-    breed: "Bengal",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Oliver",
-    age: "3 years",
-    gender: "Male",
-    breed: "Ragdoll",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Salem",
-    age: "2 years",
-    gender: "Male",
-    breed: "British Shorthair",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Cleo",
-    age: "1 year",
-    gender: "Female",
-    breed: "Abyssinian",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Simba",
-    age: "4 years",
-    gender: "Male",
-    breed: "Sphynx",
-    category: "Cats",
-    photo: "https://via.placeholder.com/150",
-  },
-
-  // Fish
-  {
-    name: "Goldie",
-    age: "1 year",
-    gender: "Female",
-    breed: "Goldfish",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Nemo",
-    age: "2 years",
-    gender: "Male",
-    breed: "Clownfish",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Bubbles",
-    age: "1 year",
-    gender: "Female",
-    breed: "Betta",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Flipper",
-    age: "3 years",
-    gender: "Male",
-    breed: "Guppy",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Splash",
-    age: "6 months",
-    gender: "Female",
-    breed: "Neon Tetra",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Freddy",
-    age: "2 years",
-    gender: "Male",
-    breed: "Angelfish",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Dory",
-    age: "3 years",
-    gender: "Female",
-    breed: "Blue Tang",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Toby",
-    age: "4 years",
-    gender: "Male",
-    breed: "Discus Fish",
-    category: "Fish",
-    photo: "https://via.placeholder.com/150",
-  },
-
-  // Birds
-  {
-    name: "Tweety",
-    age: "2 years",
-    gender: "Male",
-    breed: "Canary",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Polly",
-    age: "3 years",
-    gender: "Female",
-    breed: "Parrot",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Chirpy",
-    age: "1 year",
-    gender: "Male",
-    breed: "Cockatiel",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Sunny",
-    age: "2 years",
-    gender: "Female",
-    breed: "Macaw",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Kiwi",
-    age: "4 years",
-    gender: "Male",
-    breed: "Budgie",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Bella",
-    age: "3 years",
-    gender: "Female",
-    breed: "Lovebird",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Oliver",
-    age: "2 years",
-    gender: "Male",
-    breed: "African Grey Parrot",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-  {
-    name: "Rusty",
-    age: "5 years",
-    gender: "Male",
-    breed: "Conure",
-    category: "Birds",
-    photo: "https://via.placeholder.com/150",
-  },
-];
+// Make sure you use your backend API URL
+const API_URL = "http://localhost:3001/pets"; // Adjust for production
 
 const Adopt = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Dogs");
+  const [pets, setPets] = useState([]); // This will hold the pet data
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [filters, setFilters] = useState({
     breed: "Any",
     age: "Any",
@@ -275,6 +13,21 @@ const Adopt = () => {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPet, setSelectedPet] = useState(null);
+
+  // Fetch pet data from the backend when the component is mounted
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+        setPets(data); // Update state with pet data from the backend
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      }
+    };
+
+    fetchPets();
+  }, []); // Empty dependency array to run the effect only once on mount
 
   // Handle category selection and reset filters if the category is already selected
   const handleCategorySelect = (category) => {
@@ -292,7 +45,7 @@ const Adopt = () => {
   };
 
   // Filter pets based on selected category and filters
-  const filteredPets = petData.filter(
+  const filteredPets = pets.filter(
     (pet) =>
       (selectedCategory === "All" || pet.category === selectedCategory) &&
       (filters.breed === "Any" || pet.breed === filters.breed) &&
@@ -314,9 +67,9 @@ const Adopt = () => {
 
   // Confirm adoption
   const handleConfirmAdopt = () => {
-    // Handle the adoption logic here (e.g., updating state or making an API call)
     console.log(`Adopted ${selectedPet.name}`);
     setIsModalOpen(false);
+    alert(`Thank you for adopting ${selectedPet.name}!`);
   };
 
   return (
@@ -334,18 +87,28 @@ const Adopt = () => {
               <option>Any</option>
               {filter === "BREED" && (
                 <>
-                  {/* Breed options here */}
+                  {/* Add breed options dynamically based on fetched pets */}
+                  {[...new Set(pets.map((pet) => pet.breed))].map((breed) => (
+                    <option key={breed} value={breed}>
+                      {breed}
+                    </option>
+                  ))}
                 </>
               )}
               {filter === "AGE" && (
                 <>
-                  {/* Age options here */}
+                  {/* Add age options dynamically */}
+                  {[...new Set(pets.map((pet) => pet.age))].map((age) => (
+                    <option key={age} value={age}>
+                      {age}
+                    </option>
+                  ))}
                 </>
               )}
               {filter === "GENDER" && (
                 <>
-                  <option>Male</option>
-                  <option>Female</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
                 </>
               )}
             </select>
@@ -413,7 +176,7 @@ const Adopt = () => {
       </div>
 
       {/* Modal Overlay */}
-      {isModalOpen && (
+      {isModalOpen && selectedPet && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <h2 className="text-xl font-bold mb-4">

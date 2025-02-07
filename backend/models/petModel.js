@@ -1,4 +1,3 @@
-// models/petModel.js
 const mongoose = require("mongoose");
 
 const petSchema = new mongoose.Schema(
@@ -15,6 +14,7 @@ const petSchema = new mongoose.Schema(
   }
 );
 
-const Pet = mongoose.model("Pet", petSchema);
+// Prevent overwriting of the Pet model if it is already defined
+const Pet = mongoose.models.Pet || mongoose.model("Pet", petSchema);
 
 module.exports = Pet;

@@ -5,22 +5,22 @@ const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const productRoutes = require("./routes/productRoutes");
-const productController = require('./controllers/productController')
-const petController = require('./controllers/petController')
-const emailController = require('./controllers/emailController')
+const petController = require("./controllers/petController");
+const emailController = require("./controllers/emailController");
+const Pet = require("./models/petModel"); // Import the Pet model once
 
 const app = express();
 const PORT = process.env.PORT || 3001; // Use environment variable for port if available
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.json());
-app.use("/api/products", productRoutes);
+app.use(cors()); // Allow cross-origin requests
+app.use(bodyParser.json()); // To parse JSON bodies in requests
+app.use("/api/products", productRoutes); // Product routes
 
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true, 
+    useNewUrlParser: true,
     useUnifiedTopology: true, // Enable these options for better connection management
   })
   .then(() => {
@@ -31,12 +31,29 @@ mongoose
     process.exit(1); // Exit the process if unable to connect to MongoDB
   });
 
+// Endpoint to get pets from the database
+app.get("/pets", async (req, res) => {
+  try {
+    const pets = await Pet.find(); // Fetch all pets from the DB
+    res.json(pets);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Email Route
 app.post("/send-email", async (req, res) => {
   const { name, email, mobileNumber, address, petName, description } = req.body;
 
   // Validate required fields
-  if (!name || !email || !mobileNumber || !address || !petName || !description) {
+  if (
+    !name ||
+    !email ||
+    !mobileNumber ||
+    !address ||
+    !petName ||
+    !description
+  ) {
     return res.status(400).json({ error: "Missing required parameters" });
   }
 
@@ -64,14 +81,18 @@ app.post("/send-email", async (req, res) => {
     res.json({ success: "Email sent successfully" });
   } catch (error) {
     console.error("Error sending email:", error.message);
-    res.status(500).json({ error: "Error sending email", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Error sending email", details: error.message });
   }
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-}).on("error", (error) => {
-  console.error("Error starting server:", error.message);
-  process.exit(1); // Exit process if there's an error during server start
-});
+app
+  .listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  })
+  .on("error", (error) => {
+    console.error("Error starting server:", error.message);
+    process.exit(1); // Exit process if there's an error during server start
+  });
