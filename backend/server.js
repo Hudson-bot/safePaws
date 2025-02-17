@@ -19,10 +19,7 @@ app.use("/api/products", productRoutes); // Product routes
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true, // Enable these options for better connection management
-  })
+  .connect(process.env.MONGO_URI)  // Removed deprecated options
   .then(() => {
     console.log("MongoDB connected successfully");
   })
@@ -54,7 +51,7 @@ app.post("/send-email", async (req, res) => {
     !petName ||
     !description
   ) {
-    return res.status(400).json({ error: "Missing required parameters" });
+    return res.status(400).json({ error: "Missing one or more required parameters" });
   }
 
   // Configure Nodemailer transporter
@@ -88,11 +85,15 @@ app.post("/send-email", async (req, res) => {
 });
 
 // Start server
-app
-  .listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  })
-  .on("error", (error) => {
-    console.error("Error starting server:", error.message);
-    process.exit(1); // Exit process if there's an error during server start
-  });
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}).on("error", (error) => {
+  console.error("Error starting server:", error.message);
+  process.exit(1); // Exit process if there's an error during server start
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Unhandled error:", err.message);
+  res.status(500).json({ error: "Internal Server Error" });
+});
