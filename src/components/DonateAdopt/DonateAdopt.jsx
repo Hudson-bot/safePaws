@@ -15,40 +15,40 @@ function DonateAdopt() {
 
   return (
     <div style={{ backgroundColor: '#EEE9E2' }} className="flex flex-col min-h-screen">
-      {/* Background Section */}
-      <div
-        className="flex-1 bg-no-repeat bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/images/adoptbackground.png')" }}
-      ></div>
+  {/* Background Section */}
+  <div
+    className="flex-1 bg-no-repeat bg-cover bg-center flex items-center justify-center"
+    style={{ backgroundImage: "url('/images/adoptbackground.png')" }}
+  ></div>
 
-      {/* Donate/Adopt Buttons Section */}
-      <div
-        ref={donateAdoptRef} // Attach the ref to this section
-        className="h-80 w-full md:w-3/4 lg:w-1/2 mx-auto bg-no-repeat bg-cover bg-center flex items-center justify-center -mt-12"
-        style={{ backgroundImage: "url('/images/adoptbackground2.png')" }}
-      >
-        <div className="flex flex-wrap space-x-4 p-4 justify-center">
-          <button
-            id="donate"
-            className="flex-1 p-8 h-52 w-60 shadow-md rounded-lg bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/donatepet.png')" }}
-            onClick={() => navigate('/donate')}
-          ></button>
+  {/* Donate/Adopt Buttons Section */}
+  <div
+    ref={donateAdoptRef} // Attach the ref to this section
+    className="h-80 w-full md:w-3/4 lg:w-1/2 mx-auto bg-no-repeat bg-cover bg-center flex items-center justify-center -mt-12"
+    style={{ backgroundImage: "url('/images/adoptbackground2.png')" }}
+  >
+    <div className="flex flex-wrap justify-center gap-4 p-4">
+      <button
+        id="donate"
+        className="w-48 h-48 sm:w-52 sm:h-52 md:w-60 md:h-60 shadow-md rounded-lg bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/donatepet.png')" }}
+        onClick={() => navigate('/donate')}
+      ></button>
 
-          <button
-            id="adopt"
-            className="flex-1 p-8 h-52 w-60 shadow-md rounded-lg bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/adoptpet.png')" }}
-            onClick={() => navigate('/adopt')}
-          ></button>
-        </div>
-      </div>
-
-      {/* Folded Images Section */}
-      <div className="h-40 w-full md:w-3/4 lg:w-1/2 mx-auto mt-4" style={{ backgroundColor: '#EEE9E2' }}>
-        <img src="/images/foldedimages.png" alt="multiple-animal-photos" />
-      </div>
+      <button
+        id="adopt"
+        className="w-48 h-48 sm:w-52 sm:h-52 md:w-60 md:h-60 shadow-md rounded-lg bg-cover bg-center"
+        style={{ backgroundImage: "url('/images/adoptpet.png')" }}
+        onClick={() => navigate('/adopt')}
+      ></button>
     </div>
+  </div>
+
+  {/* Folded Images Section */}
+  <div className="w-full md:w-3/4 lg:w-1/2 mx-auto mt-4" style={{ backgroundColor: '#EEE9E2' }}>
+    <img src="/images/foldedimages.png" alt="multiple-animal-photos" className="w-full h-auto" />
+  </div>
+</div>
   );
 }
 
