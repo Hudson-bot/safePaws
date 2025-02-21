@@ -8,6 +8,11 @@ const Home = () => {
     navigate("/accessories");
   };
 
+  
+  const handleRescueClick = () => {
+    navigate("/rescue");
+  };
+
   return (
     <div
   className="flex flex-col lg:flex-row items-center justify-center lg:justify-start min-h-screen bg-cover bg-no-repeat bg-center"
@@ -26,9 +31,13 @@ const Home = () => {
 
     {/* Buttons - Rescue and Accessories */}
     <div className="flex flex-col sm:flex-row items-center mt-6 gap-4">
-      <button style={{ backgroundColor: '#BC7057' }} className="inline-flex text-white items-center px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-3 text-sm sm:text-base lg:text-lg font-medium  rounded-lg hover:opacity-75">
-        Rescue
-      </button>
+    <button
+            onClick={handleRescueClick}
+            className="inline-flex text-white items-center px-8 py-3 sm:px-12 sm:py-3 font-medium bg-orange-700 rounded-lg hover:opacity-75 mb-4 sm:mb-0 sm:mr-4"
+          >
+            Rescue
+          </button>
+      {/* style={{ backgroundColor: '#BC7057' }} */}
       <button
         onClick={handleAccessoriesClick} style={{ backgroundColor: '#BC7057' }}
         className="inline-flex text-white items-center px-6 py-2 sm:px-8 sm:py-3 lg:px-10 lg:py-3 text-sm sm:text-base lg:text-lg font-medium  rounded-lg hover:opacity-75"

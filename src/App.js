@@ -19,6 +19,7 @@ import Accessories from "./components/Accessories/Accessories";
 
 // Import a loading spinner (you can use your own spinner or any UI component library)
 import { LinearProgress } from "@mui/material"; // Material UI spinner for simplicity
+import Rescue from "./components/rescue/Rescue";
 
 function App() {
   const [loading, setLoading] = useState(true); // Create loading state
@@ -99,6 +100,7 @@ function App() {
         <Route path="/donate" element={<Donate />} />
         <Route path="/adopt" element={<Adopt />} />
         <Route path="/accessories" element={<Accessories />} />
+        <Route path="/rescue" element={<Rescue />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

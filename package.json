@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
+    "@react-google-maps/api": "^2.20.6",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
     "assert": "^2.1.0",
