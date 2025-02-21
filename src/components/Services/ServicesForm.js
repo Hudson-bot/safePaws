@@ -23,8 +23,9 @@ const ServicesForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/send-email', {
-        method: 'POST',
+      // const response = await fetch('http://localhost:3001/send-email', {
+        const response = await fetch(`${process.env.url}/send-email`, {
+          method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
