@@ -71,7 +71,7 @@ function Header({ homeRef, donateAdoptRef, aboutUsRef, servicesRef, contactsRef,
             Services
           </button>
           <button onClick={() => contactsRef.current?.scrollIntoView({ behavior: "smooth" })} className="py-2 px-3 hover:text-orange-700">
-            Contact Us
+            Wall of Love
           </button>
 
           {user ? (

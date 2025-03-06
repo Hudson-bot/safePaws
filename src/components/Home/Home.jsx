@@ -47,11 +47,11 @@ const Home = () => {
     </div>
 
     {/* Call to Action Button */}
-    <button style={{ backgroundColor: '#BC7057' }} className="inline-flex text-white items-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8 text-sm sm:text-base lg:text-lg font-medium bg-amber-800 rounded-lg hover:opacity-75 mt-6 text-center">
+    <button style={{ backgroundColor: '#BC7057' }} className="inline-flex text-white items-center px-6 py-4 sm:px-8 sm:py-6 lg:px-12 lg:py-8 text-sm sm:text-base lg:text-lg font-medium bg-amber-800 rounded-lg hover:opacity-75 mt-6 text-center ">
       <div>
         For rescue operations <br />
         Call us at: <br />
-        XXXX XXXX XXXX
+        +91-9439314070
       </div>
     </button>
   </div>

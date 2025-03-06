@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 // Make sure you use your backend API URL
-// const API_URL = "http://localhost:3001/pets"; // Adjust for production
-const API_URL = `${process.env.url}/pets`; // Adjust for production
+const API_URL = "http://localhost:3001/pets"; // Adjust for production
+// const API_URL = `${process.env.REACT_APP_URL}/pets`; // Adjust for production
 
 const Adopt = () => {
   const [pets, setPets] = useState([]); // This will hold the pet data

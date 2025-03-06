@@ -55,7 +55,7 @@ const Contacts = () => {
 
   return (
     <div style={{ fontFamily: 'Poppins, sans-serif', textAlign: 'center', backgroundColor: '#fdf2e9', margin: 0, padding: '20px' }}>
-      <h1>Wall of Love</h1>
+      <h1 style={{ fontSize: '48px' }}>Wall of Love</h1>
       <div style={{ position: 'relative', width: '70%', maxWidth: '800px', margin: 'auto', overflow: 'hidden', borderRadius: '15px', background: 'white', padding: '20px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }}>
         <div style={{ display: 'flex', transition: 'transform 0.5s ease-in-out', transform: `translateX(${-index * 100}%)` }}>
           {sliderData.map((data, i) => (
@@ -67,8 +67,8 @@ const Contacts = () => {
             </div>
           ))}
         </div>
-        <button onClick={handlePrev} style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', background: 'rgba(255, 111, 97, 0.8)', color: 'white', border: 'none', padding: '12px', cursor: 'pointer', borderRadius: '50%', fontSize: '18px', transition: '0.3s' }}>&#10094;</button>
-        <button onClick={handleNext} style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', background: 'rgba(255, 111, 97, 0.8)', color: 'white', border: 'none', padding: '12px', cursor: 'pointer', borderRadius: '50%', fontSize: '18px', transition: '0.3s' }}>&#10095;</button>
+        <button onClick={handlePrev} style={{ position: 'absolute', top: '50%', left: '10px', transform: 'translateY(-50%)', background: '#BC7057', color: 'white', border: 'none', padding: '12px', cursor: 'pointer', borderRadius: '50%', fontSize: '18px', transition: '0.3s' }}>&#10094;</button>
+        <button onClick={handleNext} style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)', background: '#BC7057', color: 'white', border: 'none', padding: '12px', cursor: 'pointer', borderRadius: '50%', fontSize: '18px', transition: '0.3s' }}>&#10095;</button>
       </div>
       <div style={{ marginTop: '40px', borderTop: '2px solid #a39f9e', borderBottom: '2px solid #a39f9e', display: 'flex', justifyContent: 'space-around', padding: '15px 0', maxWidth: '800px', margin: 'auto' }}>
         {stats.map((stat, i) => (

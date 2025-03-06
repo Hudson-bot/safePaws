@@ -19,8 +19,8 @@ const Accessories = ({ loading }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get("http://localhost:3001/api/products");
-        const response = await axios.get(`${process.env.url}/api/products`);
+        const response = await axios.get("http://localhost:3001/api/products");
+        // const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -108,7 +108,8 @@ const Accessories = ({ loading }) => {
       }
 
       const orderResponse = await axios.post(
-        `${process.env.url}/api/payment/create-order`,
+        "http://localhost:3001/api/payment/create-order",
+        // `${process.env.REACT_APP_URL}/api/payment/create-order`,
         {
           amount: totalAmount,
           currency: "INR",
