@@ -18,8 +18,8 @@ const Accessories = ({ loading }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/products");
-        // const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
+        // const response = await axios.get("http://localhost:3001/api/products");
+        const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
