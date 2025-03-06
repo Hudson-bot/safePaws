@@ -8,7 +8,6 @@ import DonateAdopt from "./components/DonateAdopt/DonateAdopt";
 import AboutUs from "./components/About/About";
 import Services from "./components/Services/Services";
 import Contacts from "./components/Contacts/Contacts";
-import Auth from "./components/authenticate/Auth";
 import Forgot from "./components/authenticate/Forgot";
 import Login from "./components/authenticate/login/Login";
 import SignUp from "./components/authenticate/signUp/signUp";

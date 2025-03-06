@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
-import Header from "../Header/Header";
 
 const Accessories = ({ loading }) => {
   const [cart, setCart] = useState({});
