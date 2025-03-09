@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom"; 
 
 const Accessories = ({ loading }) => {
   const [cart, setCart] = useState({});
@@ -18,8 +18,8 @@ const Accessories = ({ loading }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // const response = await axios.get("http://localhost:3001/api/products");
-        const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
+        const response = await axios.get("http://localhost:3001/api/products");
+        // const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

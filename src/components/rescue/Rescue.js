@@ -9,10 +9,10 @@ import {
 const center = { lat: 21.1458, lng: 79.0882 };
 
 const Rescue = ({ handleCloseForm }) => {
-  // const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz"; // Replace with your actual API key
-  const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+  const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz";
+  // const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-  const libraries = useMemo(() => ["places"], []); // Prevent re-renders
+  const libraries = useMemo(() => ["places"], []);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
