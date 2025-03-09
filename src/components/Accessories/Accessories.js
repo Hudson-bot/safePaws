@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LinearProgress } from "@mui/material";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const Accessories = ({ loading }) => {
   const [cart, setCart] = useState({});
@@ -128,9 +128,7 @@ const Accessories = ({ loading }) => {
         order_id: id,
         handler: async (response) => {
           console.log(response);
-          setOverlayMessage(
-            "Thank you for your purchase!"
-          );
+          setOverlayMessage("Thank you for your purchase!");
           setShowOverlay(true);
           setCart({}); // Clear the cart
 
@@ -214,12 +212,48 @@ const Accessories = ({ loading }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
+        {/* {filteredProducts.map((product) => (
+          <div
+            key={product.id}
+            className="bg-white rounded-xl shadow-lg overflow-hidden p-4"
+          >
+            <div className="relative bg-gray-300 h-40 rounded-lg">
+              {product.newArrival && (
+                <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">
+                  New arrivals
+                </span>
+              )}
+              <span
+                className="absolute top-2 right-2 text-gray-600 text-xl cursor-pointer"
+                onClick={() => toggleFavorite(product.id)}
+              >
+                {favorites.includes(product.id) ? " ♥" : "♡"}
+              </span>
+            </div>
+            <div className="mt-4">
+              <p className="text-lg font-semibold">{product.name}</p>
+              <p className="text-gray-700">{product.price}</p>
+              <button
+                className="mt-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                onClick={() => addToCart(product.id)}
+              >
+                Add to cart
+              </button>
+            </div>
+          </div>
+        ))} */}
         {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="bg-white rounded-xl shadow-lg overflow-hidden p-4"
           >
             <div className="relative bg-gray-300 h-40 rounded-lg">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />{" "}
+              {/* Display image */}
               {product.newArrival && (
                 <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">
                   New arrivals
