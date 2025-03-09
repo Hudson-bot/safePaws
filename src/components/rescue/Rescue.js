@@ -18,19 +18,24 @@ const Rescue = ({ handleCloseForm }) => {
   const [showMap, setShowMap] = useState(false);
   const [mapCenter, setMapCenter] = useState(center);
 
+  // Load Google Maps Script
   useEffect(() => {
     if (!window.google) {
       const script = document.createElement("script");
       script.src = `https://maps.gomaps.pro/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
       script.async = true;
       script.defer = true;
-      script.onload = () => setMapLoaded(true);
+      script.onload = () => {
+        setMapLoaded(true);
+        window.initMap = () => {}; // Define initMap to avoid errors
+      };
       document.body.appendChild(script);
     } else {
       setMapLoaded(true);
     }
   }, []);
 
+  // Get User Location
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -60,19 +65,22 @@ const Rescue = ({ handleCloseForm }) => {
   const handleMapClick = (e) => {
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
-    
-    const geocoder = new window.google.maps.Geocoder();
-    geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-      if (status === "OK" && results[0]) {
-        setFormData({
-          ...formData,
-          selectedLocation: { lat, lng },
-          address: results[0].formatted_address,
-        });
-      } else {
-        console.error("Geocode failed: " + status);
-      }
-    });
+
+    if (window.google) {
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+        if (status === "OK" && results[0]) {
+          setFormData({
+            ...formData,
+            selectedLocation: { lat, lng },
+            address: results[0].formatted_address,
+          });
+        } else {
+          console.error("Geocode failed: " + status);
+        }
+      });
+    }
+
     setShowMap(false);
   };
 
