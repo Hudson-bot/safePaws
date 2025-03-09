@@ -14,12 +14,13 @@ const Accessories = ({ loading }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [countdown, setCountdown] = useState(3); // Countdown state
   const navigate = useNavigate(); // Get navigate function
+  const API_URL = "https://safepawsbackend.onrender.com/api/products";
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/products");
-        // const response = await axios.get(`${process.env.REACT_APP_URL}/api/products`);
+        // const response = await axios.get("http://localhost:3001/api/products");
+        const response = await axios.get(API_URL);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);

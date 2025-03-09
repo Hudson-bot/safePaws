@@ -10,8 +10,7 @@ const center = { lat: 21.1458, lng: 79.0882 };
 
 const Rescue = ({ handleCloseForm }) => {
   const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz";
-  // const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-
+  // const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY; // Ensure this is set correctly
   const libraries = useMemo(() => ["places"], []);
 
   const { isLoaded } = useJsApiLoader({
@@ -27,8 +26,9 @@ const Rescue = ({ handleCloseForm }) => {
     photo: null,
     selectedLocation: null,
   });
+
   const [showMap, setShowMap] = useState(false);
-  const [mapCenter, setMapCenter] = useState(center); // Dynamic map center
+  const [mapCenter, setMapCenter] = useState(center);
   const addressRef = useRef();
 
   // Get User's Current Location
@@ -42,8 +42,9 @@ const Rescue = ({ handleCloseForm }) => {
           };
           setMapCenter(userLocation);
         },
-        () => {
-          console.error("Geolocation permission denied or unavailable.");
+        (error) => {
+          console.error("Geolocation permission denied or unavailable.", error);
+          // Optionally, set a default location or notify the user
         }
       );
     }
@@ -68,7 +69,7 @@ const Rescue = ({ handleCloseForm }) => {
         setFormData({
           ...formData,
           selectedLocation: { lat, lng },
-          address: results[0].formatted_address, // Display human-readable address
+          address: results[0].formatted_address,
         });
       } else {
         console.error("Geocode failed: " + status);
@@ -87,11 +88,19 @@ const Rescue = ({ handleCloseForm }) => {
     }
   };
 
+  const handleClose = () => {
+    if (typeof handleCloseForm === "function") {
+      handleCloseForm();
+    } else {
+      console.error("handleCloseForm is not a function");
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg w-96 relative">
         <button
-          onClick={handleCloseForm}
+          onClick={handleClose}
           className="absolute top-2 right-2 text-xl text-gray-600"
         >
           ×
@@ -150,10 +159,6 @@ const Rescue = ({ handleCloseForm }) => {
             Choose Location on Map
           </button>
 
-          {/* {formData.selectedLocation && (
-            <p className="text-sm text-gray-600">📍 Selected Location: {formData.selectedLocation.lat}, {formData.selectedLocation.lng}</p>
-          )} */}
-
           <label className="block mb-2">Photo:</label>
           <input
             type="file"
@@ -187,7 +192,7 @@ const Rescue = ({ handleCloseForm }) => {
             <div style={{ width: "100%", height: "80%" }}>
               <GoogleMap
                 center={mapCenter}
-                zoom={14} // Increased zoom level for better view on current location
+                zoom={14}
                 mapContainerStyle={{ width: "100%", height: "100%" }}
                 onClick={handleMapClick}
               >
@@ -203,4 +208,4 @@ const Rescue = ({ handleCloseForm }) => {
   );
 };
 
-export default Rescue;
+export default Rescue
