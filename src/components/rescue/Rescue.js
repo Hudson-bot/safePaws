@@ -1,23 +1,12 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
-import {
-  useJsApiLoader,
-  GoogleMap,
-  Marker,
-  Autocomplete,
-} from "@react-google-maps/api";
+import React, { useState, useEffect, useRef } from "react";
+import { GoogleMap, Marker, Autocomplete } from "@react-google-maps/api";
 
 const center = { lat: 21.1458, lng: 79.0882 };
 
 const Rescue = ({ handleCloseForm }) => {
   const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz";
-  // const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY; // Ensure this is set correctly
-  const libraries = useMemo(() => ["places"], []);
-
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    libraries: libraries,
-  });
-
+  const addressRef = useRef();
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
     animalType: "",
@@ -26,12 +15,22 @@ const Rescue = ({ handleCloseForm }) => {
     photo: null,
     selectedLocation: null,
   });
-
   const [showMap, setShowMap] = useState(false);
   const [mapCenter, setMapCenter] = useState(center);
-  const addressRef = useRef();
 
-  // Get User's Current Location
+  useEffect(() => {
+    if (!window.google) {
+      const script = document.createElement("script");
+      script.src = `https://maps.gomaps.pro/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => setMapLoaded(true);
+      document.body.appendChild(script);
+    } else {
+      setMapLoaded(true);
+    }
+  }, []);
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -44,7 +43,6 @@ const Rescue = ({ handleCloseForm }) => {
         },
         (error) => {
           console.error("Geolocation permission denied or unavailable.", error);
-          // Optionally, set a default location or notify the user
         }
       );
     }
@@ -62,7 +60,7 @@ const Rescue = ({ handleCloseForm }) => {
   const handleMapClick = (e) => {
     const lat = e.latLng.lat();
     const lng = e.latLng.lng();
-
+    
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: { lat, lng } }, (results, status) => {
       if (status === "OK" && results[0]) {
@@ -75,7 +73,6 @@ const Rescue = ({ handleCloseForm }) => {
         console.error("Geocode failed: " + status);
       }
     });
-
     setShowMap(false);
   };
 
@@ -88,117 +85,47 @@ const Rescue = ({ handleCloseForm }) => {
     }
   };
 
-  const handleClose = () => {
-    if (typeof handleCloseForm === "function") {
-      handleCloseForm();
-    } else {
-      console.error("handleCloseForm is not a function");
-    }
-  };
-
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg w-96 relative">
-        <button
-          onClick={handleClose}
-          className="absolute top-2 right-2 text-xl text-gray-600"
-        >
-          ×
-        </button>
+        <button onClick={handleCloseForm} className="absolute top-2 right-2 text-xl text-gray-600">×</button>
         <h2 className="text-2xl text-center mb-4">Rescue Form</h2>
         <form>
           <label className="block mb-2">Full Name:</label>
-          <input
-            type="text"
-            name="fullName"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            required
-            onChange={handleChange}
-          />
-
+          <input type="text" name="fullName" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
+          
           <label className="block mb-2">Type of Animal:</label>
-          <input
-            type="text"
-            name="animalType"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            required
-            onChange={handleChange}
-          />
+          <input type="text" name="animalType" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
 
           <label className="block mb-2">Injury Type:</label>
-          <input
-            type="text"
-            name="injuryType"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            required
-            onChange={handleChange}
-          />
+          <input type="text" name="injuryType" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
 
           <label className="block mb-2">Address:</label>
-          {isLoaded && (
-            <Autocomplete
-              onLoad={(ref) => (addressRef.current = ref)}
-              onPlaceChanged={handlePlaceSelect}
-            >
-              <input
-                type="text"
-                name="address"
-                className="w-full p-2 mb-4 border border-gray-300 rounded"
-                required
-                value={formData.address}
-                onChange={handleChange}
-              />
+          {mapLoaded && (
+            <Autocomplete onLoad={(ref) => (addressRef.current = ref)} onPlaceChanged={handlePlaceSelect}>
+              <input type="text" name="address" className="w-full p-2 mb-4 border border-gray-300 rounded" required value={formData.address} onChange={handleChange} />
             </Autocomplete>
           )}
-
-          <button
-            type="button"
-            className="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4"
-            onClick={() => setShowMap(true)}
-          >
-            Choose Location on Map
-          </button>
-
+          
+          <button type="button" className="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4" onClick={() => setShowMap(true)}>Choose Location on Map</button>
+          
           <label className="block mb-2">Photo:</label>
-          <input
-            type="file"
-            className="w-full p-2 mb-4 border border-gray-300 rounded"
-            accept="image/*"
-            required
-            onChange={handleFileChange}
-          />
+          <input type="file" className="w-full p-2 mb-4 border border-gray-300 rounded" accept="image/*" required onChange={handleFileChange} />
 
           <div className="flex justify-center">
-            <button
-              type="submit"
-              className="bg-orange-700 text-white px-8 py-3 rounded-lg"
-            >
-              Submit
-            </button>
+            <button type="submit" className="bg-orange-700 text-white px-8 py-3 rounded-lg">Submit</button>
           </div>
         </form>
       </div>
 
-      {showMap && isLoaded && (
+      {showMap && mapLoaded && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-11/12 h-4/5 relative">
-            <button
-              onClick={() => setShowMap(false)}
-              className="absolute top-2 right-2 text-xl text-gray-600"
-            >
-              ×
-            </button>
+            <button onClick={() => setShowMap(false)} className="absolute top-2 right-2 text-xl text-gray-600">×</button>
             <h3 className="text-lg text-center mb-4">Select a Location</h3>
             <div style={{ width: "100%", height: "80%" }}>
-              <GoogleMap
-                center={mapCenter}
-                zoom={14}
-                mapContainerStyle={{ width: "100%", height: "100%" }}
-                onClick={handleMapClick}
-              >
-                {formData.selectedLocation && (
-                  <Marker position={formData.selectedLocation} />
-                )}
+              <GoogleMap center={mapCenter} zoom={14} mapContainerStyle={{ width: "100%", height: "100%" }} onClick={handleMapClick}>
+                {formData.selectedLocation && <Marker position={formData.selectedLocation} />}
               </GoogleMap>
             </div>
           </div>
@@ -208,4 +135,4 @@ const Rescue = ({ handleCloseForm }) => {
   );
 };
 
-export default Rescue
+export default Rescue;
