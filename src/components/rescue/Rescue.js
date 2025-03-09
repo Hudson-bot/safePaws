@@ -1,11 +1,17 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
-import { useJsApiLoader, GoogleMap, Marker, Autocomplete } from "@react-google-maps/api";
+import {
+  useJsApiLoader,
+  GoogleMap,
+  Marker,
+  Autocomplete,
+} from "@react-google-maps/api";
 
-const center = { lat: 21.1458, lng: 79.0882 }; 
+const center = { lat: 21.1458, lng: 79.0882 };
 
 const Rescue = ({ handleCloseForm }) => {
-  const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz"; // Replace with your actual API key
-  
+  // const GOOGLE_MAPS_API_KEY = "AlzaSyqcqHYuc5-lvm4BoU1NbgItE0HIxJ5SgTz"; // Replace with your actual API key
+  const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
   const libraries = useMemo(() => ["places"], []); // Prevent re-renders
 
   const { isLoaded } = useJsApiLoader({
@@ -84,23 +90,47 @@ const Rescue = ({ handleCloseForm }) => {
   return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-8 rounded-lg w-96 relative">
-        <button onClick={handleCloseForm} className="absolute top-2 right-2 text-xl text-gray-600">
+        <button
+          onClick={handleCloseForm}
+          className="absolute top-2 right-2 text-xl text-gray-600"
+        >
           ×
         </button>
         <h2 className="text-2xl text-center mb-4">Rescue Form</h2>
         <form>
           <label className="block mb-2">Full Name:</label>
-          <input type="text" name="fullName" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
+          <input
+            type="text"
+            name="fullName"
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            required
+            onChange={handleChange}
+          />
 
           <label className="block mb-2">Type of Animal:</label>
-          <input type="text" name="animalType" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
+          <input
+            type="text"
+            name="animalType"
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            required
+            onChange={handleChange}
+          />
 
           <label className="block mb-2">Injury Type:</label>
-          <input type="text" name="injuryType" className="w-full p-2 mb-4 border border-gray-300 rounded" required onChange={handleChange} />
+          <input
+            type="text"
+            name="injuryType"
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            required
+            onChange={handleChange}
+          />
 
           <label className="block mb-2">Address:</label>
           {isLoaded && (
-            <Autocomplete onLoad={(ref) => (addressRef.current = ref)} onPlaceChanged={handlePlaceSelect}>
+            <Autocomplete
+              onLoad={(ref) => (addressRef.current = ref)}
+              onPlaceChanged={handlePlaceSelect}
+            >
               <input
                 type="text"
                 name="address"
@@ -112,7 +142,11 @@ const Rescue = ({ handleCloseForm }) => {
             </Autocomplete>
           )}
 
-          <button type="button" className="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4" onClick={() => setShowMap(true)}>
+          <button
+            type="button"
+            className="bg-blue-600 text-white px-4 py-2 rounded w-full mb-4"
+            onClick={() => setShowMap(true)}
+          >
             Choose Location on Map
           </button>
 
@@ -121,10 +155,21 @@ const Rescue = ({ handleCloseForm }) => {
           )} */}
 
           <label className="block mb-2">Photo:</label>
-          <input type="file" className="w-full p-2 mb-4 border border-gray-300 rounded" accept="image/*" required onChange={handleFileChange} />
+          <input
+            type="file"
+            className="w-full p-2 mb-4 border border-gray-300 rounded"
+            accept="image/*"
+            required
+            onChange={handleFileChange}
+          />
 
           <div className="flex justify-center">
-            <button type="submit" className="bg-orange-700 text-white px-8 py-3 rounded-lg">Submit</button>
+            <button
+              type="submit"
+              className="bg-orange-700 text-white px-8 py-3 rounded-lg"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
@@ -132,7 +177,10 @@ const Rescue = ({ handleCloseForm }) => {
       {showMap && isLoaded && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-11/12 h-4/5 relative">
-            <button onClick={() => setShowMap(false)} className="absolute top-2 right-2 text-xl text-gray-600">
+            <button
+              onClick={() => setShowMap(false)}
+              className="absolute top-2 right-2 text-xl text-gray-600"
+            >
               ×
             </button>
             <h3 className="text-lg text-center mb-4">Select a Location</h3>
@@ -143,7 +191,9 @@ const Rescue = ({ handleCloseForm }) => {
                 mapContainerStyle={{ width: "100%", height: "100%" }}
                 onClick={handleMapClick}
               >
-                {formData.selectedLocation && <Marker position={formData.selectedLocation} />}
+                {formData.selectedLocation && (
+                  <Marker position={formData.selectedLocation} />
+                )}
               </GoogleMap>
             </div>
           </div>
