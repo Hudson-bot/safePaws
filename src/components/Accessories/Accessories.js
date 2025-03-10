@@ -3,7 +3,7 @@ import axios from "axios";
 import { LinearProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Accessories = ({ loading }) => {
+const Accessories = () => {
   const [cart, setCart] = useState({});
   const [favorites, setFavorites] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -12,18 +12,21 @@ const Accessories = ({ loading }) => {
   const [products, setProducts] = useState([]);
   const [overlayMessage, setOverlayMessage] = useState("");
   const [showOverlay, setShowOverlay] = useState(false);
-  const [countdown, setCountdown] = useState(3); // Countdown state
-  const navigate = useNavigate(); // Get navigate function
+  const [countdown, setCountdown] = useState(3);
+  const [loading, setLoading] = useState(true); // Loading state
+  const navigate = useNavigate();
   const API_URL = "https://safepawsbackend.onrender.com/api/products";
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setLoading(true); // Set loading to true before fetching
       try {
-        // const response = await axios.get("http://localhost:3001/api/products");
         const response = await axios.get(API_URL);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
@@ -108,8 +111,9 @@ const Accessories = ({ loading }) => {
       }
 
       const orderResponse = await axios.post(
-        "http://localhost:3001/api/payment/create-order",
+        // "http://localhost:3001/api/payment/create-order",
         // `${process.env.REACT_APP_URL}/api/payment/create-order`,
+        "https://safepawsbackend.onrender.com/api/payment/create-order",
         {
           amount: totalAmount,
           currency: "INR",
@@ -166,10 +170,31 @@ const Accessories = ({ loading }) => {
     setShowOverlay(false);
   };
 
+  // if (filteredProducts.length === 0) {
+  //   return (
+  //     <div className="bg-[#E8E0D6] min-h-screen p-10">
+  //       {loading && <LinearProgress color="secondary" />}
+  //       <div className="text-center text-xl font-semibold text-gray-600">
+  //         No products are available right now.
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  if (loading) {
+    return (
+      <div className="bg-[#E8E0D6] min-h-screen p-10">
+        <LinearProgress color="secondary" />
+        <div className="text-center text-xl font-semibold text-gray-600">
+          Loading products...
+        </div>
+      </div>
+    );
+  }
+
   if (filteredProducts.length === 0) {
     return (
       <div className="bg-[#E8E0D6] min-h-screen p-10">
-        {loading && <LinearProgress color="secondary" />}
         <div className="text-center text-xl font-semibold text-gray-600">
           No products are available right now.
         </div>
@@ -179,7 +204,6 @@ const Accessories = ({ loading }) => {
 
   return (
     <div className="bg-[#E8E0D6] min-h-screen p-10">
-      {loading && <LinearProgress color="secondary" />}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold text-brown-700">Accessories</h1>
         <div className="flex space-x-3">
@@ -212,36 +236,6 @@ const Accessories = ({ loading }) => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6">
-        {/* {filteredProducts.map((product) => (
-          <div
-            key={product.id}
-            className="bg-white rounded-xl shadow-lg overflow-hidden p-4"
-          >
-            <div className="relative bg-gray-300 h-40 rounded-lg">
-              {product.newArrival && (
-                <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">
-                  New arrivals
-                </span>
-              )}
-              <span
-                className="absolute top-2 right-2 text-gray-600 text-xl cursor-pointer"
-                onClick={() => toggleFavorite(product.id)}
-              >
-                {favorites.includes(product.id) ? " ♥" : "♡"}
-              </span>
-            </div>
-            <div className="mt-4">
-              <p className="text-lg font-semibold">{product.name}</p>
-              <p className="text-gray-700">{product.price}</p>
-              <button
-                className="mt-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
-                onClick={() => addToCart(product.id)}
-              >
-                Add to cart
-              </button>
-            </div>
-          </div>
-        ))} */}
         {filteredProducts.map((product) => (
           <div
             key={product.id}
@@ -252,10 +246,9 @@ const Accessories = ({ loading }) => {
                 src={product.image}
                 alt={product.name}
                 className="w-full h-full object-cover"
-              />{" "}
-              {/* Display image */}
+              />
               {product.newArrival && (
-                <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs px-2 py-1 rounded">
+                <span className="absolute top-2 left-2 bg-gray-600 text-white text-xs px -2 py-1 rounded">
                   New arrivals
                 </span>
               )}
@@ -294,8 +287,7 @@ const Accessories = ({ loading }) => {
                     <p className="flex-1">{product.name}</p>
                     <p>
                       {product.price} x {cart[id]}
-                    </p>{" "}
-                    {/* Show quantity */}
+                    </p>
                     <button
                       className="text-red-500 text-xl ml-2"
                       onClick={() => removeFromCart(id)}
@@ -307,7 +299,7 @@ const Accessories = ({ loading }) => {
               })
             )}
             <div className="mt-4 text-lg font-semibold">
-              <p>Total: INR {calculateTotal()}</p> {/* Display total */}
+              <p>Total: INR {calculateTotal()}</p>
             </div>
             <div className="flex justify-between mt-4">
               <button
@@ -327,15 +319,13 @@ const Accessories = ({ loading }) => {
         </div>
       )}
 
-      {/* Overlay for Payment Success/Failure */}
       {showOverlay && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-70 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg w-1/2 max-w-lg text-center">
             <h2 className="text-2xl font-bold mb-4">{overlayMessage}</h2>
             <p className="text-lg">
               Returning to homepage in {countdown} seconds.
-            </p>{" "}
-            {/* Countdown message */}
+            </p>
             <button
               className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-400"
               onClick={closeOverlay}
